@@ -14,6 +14,12 @@
 
 
         <!-- TODO show errors from form validation -->
+        <div class="alert alert-danger" v-if="errors.length > 0">
+            <ul>
+                <li v-for="error in errors">{{ error }}</li>
+            </ul>
+
+        </div>
 
         <div class="card add-student m-2 p-2">
             <h4 class="card-title">Add new student</h4>
@@ -48,7 +54,6 @@
                    <tr v-for = "student in students">
                        <td>{{ student.name }}</td>
                        <td> {{ student.starID }}</td>
-                       <td> {{ student.present }}</td>
                    </tr>
 
                 </table>
@@ -75,17 +80,30 @@
                          // javascript student object
                          {name: 'A. Student', starID: 'aa1234bb', present: false},
                          {name: 'B. Student', starID: 'bb1234cc', present: false}
-                     ]
+                     ],
+                     errors: []
                  }
              },
              methods: {
                  addStudent (){
-                     // this method reads the new student data and creates a new object with the information
-                     let student = { name: this.newStudentName, starID: this.newStarID, present: false }
-                     // must use this dot when referring to any vue data
-                     this.student.push(student)
-                     this.newStudentName = '' //clear form inputs
-                     this.newStarID = ''
+                     this.errors = [] // clear errors array
+                     if (!this.newStudentName) {
+                         this.errors.push('Student name must be entered')
+                     }
+                     if (!this.starID) {
+                         this.errors.push('A starID must be entered')
+                     }
+                     // form validation should not allow an empty input
+                     if (this.errors.length == 0){
+                        // this method reads the new student data and creates a new object with the information
+                        let student = { name: this.newStudentName, starID: this.newStarID, present: false }
+                        // must use this dot when referring to any vue data
+                        this.student.push(student)
+                        this.newStudentName = '' //clear form inputs
+                        this.newStarID = ''
+                     }
+                     // display errors to the user? How?
+
                  }
              }
         })
