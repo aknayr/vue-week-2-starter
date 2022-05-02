@@ -15,7 +15,6 @@
 
         <!-- TODO show errors from form validation -->
 
-
         <div class="card add-student m-2 p-2">
             <h4 class="card-title">Add new student</h4>
 
@@ -46,6 +45,11 @@
                    <!-- TODO create table rows 
                    Each row will have a checkbox, bound to the app's data 
                    When the checkbox is checked/unchecked, the student will be signed in/out -->
+                   <tr v-for = "student in students">
+                       <td>{{ student.name }}</td>
+                       <td> {{ student.starID }}</td>
+                       <td> {{ student.present }}</td>
+                   </tr>
 
                 </table>
             </div>
