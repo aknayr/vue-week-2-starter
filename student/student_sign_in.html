@@ -55,7 +55,7 @@
                        <td>{{ student.name }}</td>
                        <td> {{ student.starID }}</td>
                        <td>
-                           <input type="checkbox" v-model="student.present" v-on:change="arrivedOrLeft">
+                           <input type="checkbox" v-model="student.present" v-on:change="arrivedOrLeft(student)">
                        </td>
                    </tr>
 
@@ -106,7 +106,7 @@
                      if (!this.newStudentName) {
                          this.errors.push('Student name must be entered')
                      }
-                     if (!this.starID) {
+                     if (!this.newStarID) {
                          this.errors.push('A starID must be entered')
                      }
                      // form validation should not allow an empty input
@@ -114,18 +114,17 @@
                         // this method reads the new student data and creates a new object with the information
                         let student = { name: this.newStudentName, starID: this.newStarID, present: false }
                         // must use this dot when referring to any vue data
-                        this.student.push(student)
+                        this.students.push(student)
                         this.newStudentName = '' //clear form inputs
                         this.newStarID = ''
                      }
                      // display errors to the user? How?
-
-                 }
              },
-             arrivedOrLeft (student) {
+             arrivedOrLeft(student) {
                  //console.log('Someone arrived')
                  this.mostRecentStudent = student
              }
+            }
         })
 
         app.mount('#app')
