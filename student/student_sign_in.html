@@ -51,9 +51,12 @@
                    <!-- TODO create table rows 
                    Each row will have a checkbox, bound to the app's data 
                    When the checkbox is checked/unchecked, the student will be signed in/out -->
-                   <tr v-for = "student in students">
+                   <tr v-for="student in students">
                        <td>{{ student.name }}</td>
                        <td> {{ student.starID }}</td>
+                       <td>
+                           <input type="checkbox" v-model="student.present" v-on:change="arrivedOrLeft">
+                       </td>
                    </tr>
 
                 </table>
@@ -62,6 +65,18 @@
 
 
         <!-- TODO show a message when student arrives or leaves  -->
+
+        <div v-if="mostRecentStudent.name">
+
+            <div v-if="mostRecentStudent.present">
+                Welcome, {{ mostRecentStudent.name }}
+            </div>
+
+            <div v-else>
+                Goodbye, {{ mostRecentStudent.name }}. See you later!
+            </div>
+
+        </div>
 
 
     </div>
@@ -81,7 +96,8 @@
                          {name: 'A. Student', starID: 'aa1234bb', present: false},
                          {name: 'B. Student', starID: 'bb1234cc', present: false}
                      ],
-                     errors: []
+                     errors: [],
+                     mostRecentStudent: {} // most recent person who arrived/left
                  }
              },
              methods: {
@@ -105,6 +121,10 @@
                      // display errors to the user? How?
 
                  }
+             },
+             arrivedOrLeft (student) {
+                 //console.log('Someone arrived')
+                 this.mostRecentStudent = student
              }
         })
 
