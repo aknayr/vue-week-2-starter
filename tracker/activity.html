@@ -30,7 +30,8 @@
                     <!-- TODO display name of activity in the label -->
                     <label class="form-label" for="date">What date did you do this activity?</label>
                     <!-- TODO use v-model to connect this input to dateString data -->
-                    <input id="date" class="form-control" type="date">
+                    <!-- most browsers parse dates as strings -->
+                    <input id="date" class="form-control" type="date" v-model="dateString">
                     <small id="date-help" class="form-text text-muted">
                         Date must be today or in the past.
                     </small>
@@ -60,14 +61,14 @@
 
                 <div class="form-check-inline">
                     <!-- TODO v-model media -->
-                    <input id="media1" class="form-check-input" type="radio">
-                    <label class="form-check-label" for="media1">  <!--TODO Display text -->  </label>
+                    <input id="media1" class="form-check-input" type="radio" value="Traditional" v-model="medium">
+                    <label class="form-check-label" for="media1">  Traditional </label>
                 </div>
 
                 <div class="form-check-inline">
                     <!-- TODO v-model media -->
-                    <input id="media2" class="form-check-input" type="radio">
-                    <label class="form-check-label" for="media2">  <!-- TODO Display text -->  </label>
+                    <input id="media2" class="form-check-input" type="radio" value="Digital" v-model="medium">
+                    <label class="form-check-label" for="media2">  Digital  </label>
                 </div>
 
                 <div>
@@ -125,7 +126,7 @@
                 // empty array to hold data
                 activityRecords: [],
                 // an array of activity records
-                date: '',
+                dateString: '',
                 hours: 1,
                 type: 'Sketching',
                 medium: 'Traditional',
