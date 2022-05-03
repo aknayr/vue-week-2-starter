@@ -84,7 +84,7 @@
 
             <div class="card-body">
 
-                <h3> <!-- TODO Display number of records --> records</h3>
+                <h3> {{ totalRecordsMessage }} records</h3>
 
                 <div id="records">
                     <table class="table table-hover">
@@ -96,7 +96,7 @@
                         </tr>
                         <!-- TODO use v-for to create one table row for each activity record -->
                         <tr v-for="record in activityRecords">
-                            <td>{{ record.date }}</td>
+                            <td>{{ shortDate(record.date) }}</td>
                             <td>{{ record.hours }}</td>
                             <td>{{ record.type }}</td>
                             <td>{{ record.medium }}</td>
@@ -144,7 +144,7 @@
 
         },
         methods: {
-            submit(){
+            submit() {
                 // assume no errors (empty array) and then check/validate for things that could be wrong
                 this.errors = []
 
@@ -168,13 +168,34 @@
                     this.errors.push('Select a medium')
                 }
                 // record object holds data to display date value
-                let record = {
-                    date: date,
-                    hours: this.hours,
-                    type: this.type,
-                    medium: this.medium
-                }
+                if (this.errors.length === 0){
+                    let record = {
+                        date: date,
+                        hours: this.hours,
+                        type: this.type,
+                        medium: this.medium
+                    }
+            }
                 this.activityRecords.push(record)
+
+                // sort the records
+                this.activityRecords.sort(function(r1,r2){
+                    return r1.date.getTime() - r2.date.getTime()
+                })
+            },
+            shortDate(date) {
+                return new Intl.DateTimeFormat('en-US', {timeZone: 'UTC'}).format(date)
+            }
+
+        },
+        computed: {
+            totalRecords(){
+                if(this.activityRecords.length === 1)
+                {
+                    return '1 record'
+                } else {
+                    return this.activityRecords.length + 'records'
+                }
             }
         }
     })
