@@ -73,7 +73,7 @@
 
                 <div>
                     <!-- TODO Add v-on:click -->
-                    <button class="btn btn-primary mt-2" type="button">Add record</button>
+                    <button class="btn btn-primary mt-2" type="button" v-on:click="submit">Add record</button>
                 </div>
                 
             </div>
@@ -136,6 +136,19 @@
 
             }
 
+        },
+        methods: {
+            submit(){
+                let date = new Date(this.dateString)
+                // record object holds data to display date value
+                let record = {
+                    date: date,
+                    hours: this.hours,
+                    type: this.type,
+                    medium: this.medium
+                }
+                this.activityRecords.push(record)
+            }
         }
     })
 
