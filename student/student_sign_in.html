@@ -51,7 +51,7 @@
                    <!-- TODO create table rows 
                    Each row will have a checkbox, bound to the app's data 
                    When the checkbox is checked/unchecked, the student will be signed in/out -->
-                   <tr v-for="student in students">
+                   <tr v-for="student in students" v-bind:class=" { present: student.present, absent: !student.present} "> 
                        <td>{{ student.name }}</td>
                        <td> {{ student.starID }}</td>
                        <td>
@@ -117,6 +117,20 @@
                         this.students.push(student)
                         this.newStudentName = '' //clear form inputs
                         this.newStarID = ''
+
+                        this.students.sort(function(s1, s2){
+                            // return positive number if s1 should be sorted after s2
+                            if (s1.name > s2.name ) {
+                                return 1
+                            } else {
+                                if (s1.name < s2.name)
+                                return -1
+                            }
+                            return 0
+                            // return negative number if vice versa
+                            // return zero if equal
+
+                        })
                      }
                      // display errors to the user? How?
              },
