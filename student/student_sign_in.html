@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
 
 
         <!-- TODO show errors from form validation -->
@@ -68,11 +68,11 @@
 
         <div v-if="mostRecentStudent.name">
 
-            <div v-if="mostRecentStudent.present">
+            <div class="alert alert-info" v-if="mostRecentStudent.present">
                 Welcome, {{ mostRecentStudent.name }}
             </div>
 
-            <div v-else>
+            <div class="alert alert-success" v-else>
                 Goodbye, {{ mostRecentStudent.name }}. See you later!
             </div>
 
