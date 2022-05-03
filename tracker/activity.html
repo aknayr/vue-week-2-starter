@@ -113,7 +113,7 @@
             <div class="card-body">
 
                 <!-- TODO add computed property to calculate the total hours -->
-                <p>You have practiced a total of <!-- TODO display total hours --> hours</p>
+                <p>You have practiced a total of {{ totalHours }} hours</p>
 
                 <!-- Challenge question! Display a list of the total hours for each type.  -->
           
@@ -196,6 +196,13 @@
                 } else {
                     return this.activityRecords.length + 'records'
                 }
+            },
+            totalHours() {
+                let total = 0
+                this.activityRecords.forEach(function(record) {
+                    total = total + record.hours
+                })
+                return total
             }
         }
     })
